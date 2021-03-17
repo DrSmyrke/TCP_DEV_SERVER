@@ -28,8 +28,15 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0" colspan="6">
-     <widget class="QTextBrowser" name="logBox"/>
+    <item row="0" column="4">
+     <widget class="QPushButton" name="hexB">
+      <property name="text">
+       <string>HEX</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
     <item row="0" column="5">
      <widget class="QPushButton" name="clearB">
@@ -42,16 +49,6 @@
      <widget class="QLabel" name="label">
       <property name="text">
        <string>&lt;b&gt;Port:&lt;/b&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="4">
-     <widget class="QPushButton" name="hexB">
-      <property name="text">
-       <string>HEX</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -72,6 +69,56 @@
      <widget class="Line" name="line">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="6">
+     <widget class="QTextBrowser" name="logBox"/>
+    </item>
+    <item row="2" column="5">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Deskriptor:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="descriptorBox">
+        <property name="maximum">
+         <number>65535</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="sendB">
+        <property name="text">
+         <string>SEND</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0" colspan="5">
+     <widget class="QPlainTextEdit" name="sendTextBox">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="plainText">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>Response</string>
       </property>
      </widget>
     </item>

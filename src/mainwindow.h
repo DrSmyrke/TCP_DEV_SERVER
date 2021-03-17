@@ -18,6 +18,7 @@ public:
 	~MainWindow();
 signals:
 	void signal_stopALL();
+	void signal_sendAll(const int descriptor, const QByteArray &data);
 private slots:
 	void slot_newConnection();
 	void slot_incommingData(const QString& addr, const QByteArray &data);

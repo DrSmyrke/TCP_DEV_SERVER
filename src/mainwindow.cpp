@@ -46,6 +46,12 @@ MainWindow::MainWindow(QWidget *parent)
 		m_hexF = checked;
 	} );
 
+	connect( ui->sendB, &QPushButton::clicked, this, [this](){
+		auto data = ui->sendTextBox->document()->toPlainText();
+		auto desc = ui->descriptorBox->value();
+		emit signal_sendAll( desc, data.toUtf8() );
+	} );
+
 	connect( m_pServer, &QTcpServer::newConnection, this, &MainWindow::slot_newConnection );
 }
 
@@ -61,23 +67,25 @@ void MainWindow::slot_newConnection()
 	Client* client = new Client( socket, this );
 
 	connect( this, &MainWindow::signal_stopALL, client, &Client::slot_stop );
+	connect( this, &MainWindow::signal_sendAll, client, &Client::slot_sendAll );
 	connect( client, &Client::signal_stopped, client, &QTcpSocket::deleteLater );
-	connect( client, &Client::signal_sendBye, this, [this](const QString &addr){
-		QString str = QString( tr("Disconnected from [%1]") ).arg( addr );
+	connect( client, &Client::signal_sendBye, this, [this, client](){
+		QString str = QString( "<span style=\"color:gray\">%1 [%2]</span>" ).arg( tr("Disconnected from") ).arg( client->getMyAddr() );
 		ui->logBox->append( str );
 	} );
 	connect( client, &Client::signal_incommingData, this, &MainWindow::slot_incommingData );
 
-	QString str = QString( tr("New connect from [%1:%2]") ).arg( socket->peerAddress().toString() ).arg( socket->peerPort() );
+	QString str = QString( "<span style=\"color:gray\">%1 [%2:%3]</span>" ).arg( tr("New connect from") ).arg( socket->peerAddress().toString() ).arg( socket->peerPort() );
 	ui->logBox->append( str );
 }
 
 void MainWindow::slot_incommingData(const QString &addr, const QByteArray &data)
 {
-	QString str = QString( "[%1] >:%2" ).arg( addr ).arg( QString( data ) );
+	QString str = QString( "[%1] [%2 bytes] >:" ).arg( addr ).arg( data.size() );
 	ui->logBox->append( str );
+	ui->logBox->append( QString( data ) );
 	if( m_hexF ){
-		str = QString( "[%1] >:%2" ).arg( addr ).arg( QString( data.toHex() ) );
+		str = QString( ">: %2" ).arg( addr ).arg( QString( data.toHex() ) );
 		ui->logBox->append( str );
 	}
 }

@@ -11,8 +11,15 @@ Client::Client(QTcpSocket *socket, QObject *parent)
 
 void Client::slot_stop()
 {
-	emit signal_sendBye( getMyAddr() );
+	emit signal_sendBye();
 	emit signal_stopped();
+}
+
+void Client::slot_sendAll(const int descriptor, const QByteArray &data)
+{
+	if( descriptor != m_pClient->socketDescriptor() ) return;
+
+	sendData( data );
 }
 
 void Client::slot_readyRead()
@@ -25,7 +32,16 @@ void Client::slot_readyRead()
 	emit signal_incommingData( getMyAddr(), ba );
 }
 
+void Client::sendData(const QByteArray &data)
+{
+	if( data.size() == 0 ) return;
+	if( m_pClient->state() == QAbstractSocket::ConnectingState ) m_pClient->waitForConnected(300);
+	if( m_pClient->state() == QAbstractSocket::UnconnectedState ) return;
+	m_pClient->write( data );
+	m_pClient->waitForBytesWritten(100);
+}
+
 QString Client::getMyAddr()
 {
-	return QString( "%1:%2" ).arg( m_pClient->peerAddress().toString() ).arg( m_pClient->peerPort() );
+	return QString( "%1:%2, %3" ).arg( m_pClient->peerAddress().toString() ).arg( m_pClient->peerPort() ).arg( m_pClient->socketDescriptor() );
 }
