@@ -94,7 +94,7 @@ void MainWindow::slot_incommingData(const int descriptor, const QString &addr, c
 		auto data = ui->sendTextBox->document()->toPlainText();
 		emit signal_sendAll( descriptor, data.toUtf8() );
 
-		ui->logBox->append( "<span style=\"color:orange;\"><:</span>" );
+		ui->logBox->append( "=== RESPONSE =================" );
 		ui->logBox->append( QString( data ) );
 	}
 }
@@ -105,6 +105,6 @@ void MainWindow::slot_sendData()
 	auto desc = ui->descriptorBox->value();
 	emit signal_sendAll( desc, data.toUtf8() );
 
-	ui->logBox->append( "<span style=\"color:orange;\"><:</span>" );
+	ui->logBox->append( "=== RESPONSE =================" );
 	ui->logBox->append( QString( data ) );
 }
