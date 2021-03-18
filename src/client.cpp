@@ -29,7 +29,7 @@ void Client::slot_readyRead()
 		ba.append( m_pClient->readAll() );
 	}
 
-	emit signal_incommingData( getMyAddr(), ba );
+	emit signal_incommingData( m_pClient->socketDescriptor(),getMyAddr(), ba );
 }
 
 void Client::sendData(const QByteArray &data)

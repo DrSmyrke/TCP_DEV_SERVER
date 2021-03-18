@@ -12,7 +12,7 @@ public:
 	QString getMyAddr();
 signals:
 	void signal_stopped();
-	void signal_incommingData(const QString &addr, const QByteArray &data);
+	void signal_incommingData(const int descriptor, const QString &addr, const QByteArray &data);
 	void signal_sendBye();
 public slots:
 	void slot_stop();

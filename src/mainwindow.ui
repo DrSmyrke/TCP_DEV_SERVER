@@ -78,6 +78,16 @@
     <item row="2" column="5">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
+       <widget class="QPushButton" name="autosendB">
+        <property name="text">
+         <string>AUTORESPONSE</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="label_2">
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Deskriptor:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -105,17 +115,23 @@
       <property name="minimumSize">
        <size>
         <width>0</width>
-        <height>100</height>
+        <height>120</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>100</height>
+        <height>120</height>
        </size>
       </property>
       <property name="plainText">
-       <string/>
+       <string>HTTP/1.1 200 OK
+Server: nginx/1.17.9
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+
+{&quot;message&quot;:&quot;Requires authentication&quot;,&quot;method&quot;:&quot;PUT&quot;}</string>
       </property>
       <property name="placeholderText">
        <string>Response</string>

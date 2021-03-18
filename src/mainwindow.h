@@ -21,12 +21,14 @@ signals:
 	void signal_sendAll(const int descriptor, const QByteArray &data);
 private slots:
 	void slot_newConnection();
-	void slot_incommingData(const QString& addr, const QByteArray &data);
+	void slot_incommingData(const int descriptor, const QString& addr, const QByteArray &data);
+	void slot_sendData();
 private:
 	Ui::MainWindow *ui;
 	QTcpServer* m_pServer;
 	QTcpSocket* m_pLastClient;
 
 	bool m_hexF;
+	bool m_autosendF;
 };
 #endif // MAINWINDOW_H
