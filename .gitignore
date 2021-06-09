@@ -3,4 +3,7 @@ bin/*
 build/*
 build*
 
+src/http.cpp
+src/http.h
+
 *.user

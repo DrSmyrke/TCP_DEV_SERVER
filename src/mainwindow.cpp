@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "http.h"
 
 #include <QStyle>
 
@@ -82,11 +83,13 @@ void MainWindow::slot_newConnection()
 
 void MainWindow::slot_incommingData(const int descriptor, const QString &addr, const QByteArray &data)
 {
+	ui->logBox->append( "=== REQUEST =================" );
 	QString str = QString( "[%1] [%2 bytes] >:" ).arg( addr ).arg( data.size() );
 	ui->logBox->append( str );
 	ui->logBox->append( QString( data ) );
 	if( m_hexF ){
-		str = QString( ">: %2" ).arg( addr ).arg( QString( data.toHex() ) );
+		auto pkt = http::parsPkt( data );
+		str = QString( "<span style=\"color: gray;\">>: %1</span>" ).arg( QString( pkt.body.rawData.toHex() ) );
 		ui->logBox->append( str );
 	}
 
