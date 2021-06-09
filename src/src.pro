@@ -1,8 +1,5 @@
 QT       += core gui network
 
-#uncomment from static build
-#QMAKE_LFLAGS_RELEASE += -static -static-libgcc
-
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = tcpDEVserver
@@ -10,6 +7,10 @@ CONFIG += c++11
 
 CONFIG(debug, debug|release):CONFIGURATION=debug
 CONFIG(release, debug|release):CONFIGURATION=release
+
+build_pass:CONFIG(release, debug|release) {
+    QMAKE_LFLAGS_RELEASE += -static -static-libgcc
+}
 
 build_pass:CONFIG(debug, debug|release) {
     unix: TARGET = $$join(TARGET,,,_debug)
